@@ -1,0 +1,2 @@
+Buen trabajo con la estructura general del diagrama. Podrías mejorar la claridad agregando un nodo que represente al "Usuario" para visualizar el punto de entrada al sistema. 
+Además, sería útil etiquetar las flechas para describir mejor el flujo de datos y especificar qué base de datos utiliza cada módulo. Esto facilitará la comprensión para otros desarrolladores o revisores.
