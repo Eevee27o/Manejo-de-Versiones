@@ -1,0 +1,59 @@
+flowchart TD
+    %% Grupos/Subgráficos
+    subgraph Cliente
+        A[Usuario (Cliente)]
+    end
+
+    subgraph CDN
+        B[CDN: Assets, Imágenes, Trailers]
+    end
+
+    subgraph Web
+        C[Servidor Web (Frontend)]
+    end
+
+    subgraph App [Aplicación Backend]
+        D[Servidor de Aplicaciones]
+        D1[Módulo de Autenticación]
+        D2[Módulo de Catálogo de Juegos]
+        D3[Módulo de Pagos]
+        D4[Módulo de Biblioteca de Usuario]
+        D5[Módulo de Gestión de Descargas]
+        D6[Módulo de Notificaciones]
+    end
+
+    subgraph DB [Base de Datos]
+        E[Servidor de Base de Datos]
+        E1[DB de Usuarios]
+        E2[DB de Juegos]
+        E3[DB de Transacciones]
+    end
+
+    subgraph Email [Sistema de Correo]
+        F[Servidor de Correo (Verificación)]
+    end
+
+    %% Conexiones principales
+    A -->|Solicita recursos| C
+    A -->|Solicita assets| B
+    C -->|Solicita lógica de negocio| D
+    D -->|Consulta / Guarda datos| E
+    D1 -->|Usa| E1
+    D2 -->|Usa| E2
+    D3 -->|Usa| E3
+    D4 -->|Usa| E1
+    D5 -->|Consulta juegos| E2
+    D6 -->|Envía notificaciones| F
+
+    %% Relación de módulos con el servidor de aplicaciones
+    D --> D1
+    D --> D2
+    D --> D3
+    D --> D4
+    D --> D5
+    D --> D6
+
+    %% Bases de datos conectadas al servidor DB
+    E --> E1
+    E --> E2
+    E --> E3
