@@ -1,0 +1,70 @@
+flowchart TD
+    %% Cliente / Usuario
+    subgraph Cliente ["👤 Cliente/Usuario"]
+        A[Usuario final]
+    end
+
+    %% CDN
+    subgraph CDN ["🌐 CDN (Red de Distribución de Contenidos)"]
+        B[Assets Estáticos: Imágenes, Trailers, Recursos]
+    end
+
+    %% Web Frontend
+    subgraph Frontend ["🖥️ Servidor Web (Frontend)"]
+        C[Aplicación Web (React/Vue/Angular)]
+    end
+
+    %% Backend
+    subgraph Backend ["🛠️ Servidor Backend (Aplicación Principal)"]
+        D[Controlador Principal (API REST / GraphQL)]
+
+        subgraph Modulos ["🔧 Módulos Funcionales"]
+            D1[Módulo de Autenticación]
+            D2[Módulo de Catálogo de Juegos]
+            D3[Módulo de Pagos]
+            D4[Módulo de Biblioteca de Usuario]
+            D5[Módulo de Gestión de Descargas]
+            D6[Módulo de Notificaciones]
+        end
+    end
+
+    %% Base de Datos
+    subgraph Database ["🗄️ Base de Datos"]
+        E[Servidor de Base de Datos (PostgreSQL/MySQL)]
+        E1[DB de Usuarios]
+        E2[DB de Juegos]
+        E3[DB de Transacciones]
+    end
+
+    %% Correo
+    subgraph Email ["✉️ Servidor de Correo (SMTP)"]
+        F[Servidor de Correo para Verificación]
+    end
+
+    %% Flujo de Datos
+    A -->|Solicita Página / Recursos| C
+    A -->|Solicita Contenido Estático| B
+
+    C -->|Realiza Peticiones API| D
+
+    D --> D1
+    D --> D2
+    D --> D3
+    D --> D4
+    D --> D5
+    D --> D6
+
+    %% Relación Módulos con Bases de Datos
+    D1 -->|Consulta / Guarda Usuarios| E1
+    D2 -->|Consulta Juegos| E2
+    D3 -->|Consulta / Guarda Transacciones| E3
+    D4 -->|Consulta Biblioteca de Usuario| E1
+    D5 -->|Consulta Descargas| E2
+
+    %% Base de Datos Relaciones
+    E --> E1
+    E --> E2
+    E --> E3
+
+    %% Notificaciones por correo
+    D6 -->|Envía Correos de Notificación| F
